@@ -3,5 +3,7 @@
 export enum CONFIG_KEYS {
     PORT = 'PORT',
     DATABASE_URL = 'DATABASE_URL',
-    NODE_ENV = 'NODE_ENV'
+    NODE_ENV = 'NODE_ENV',
+    JWT_SECRET = 'JWT_SECRET',
+    JWT_EXPIRES_IN = 'JWT_EXPIRES_IN'
 }

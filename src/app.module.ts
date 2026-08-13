@@ -15,7 +15,7 @@ import { PrismaModule } from './modules/prisma/prisma.module';
       isGlobal: true,
       validationSchema: Joi.object({
         [CONFIG_KEYS.PORT]: Joi.number().default(3000),
-        // [CONFIG_KEYS.DATABASE_URL]: Joi.string().required(),
+        [CONFIG_KEYS.DATABASE_URL]: Joi.string().required(),
         [CONFIG_KEYS.NODE_ENV]: Joi.string().valid('development', 'production', 'staging').default('development')
       })
     }),

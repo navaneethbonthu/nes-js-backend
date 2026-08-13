@@ -4,7 +4,7 @@ import { CreateUserDto } from "./dto/create-user.dto";
 
 
 
-@Controller()
+@Controller('user')
 export class UserControler {
 
 

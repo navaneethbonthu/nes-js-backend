@@ -6,6 +6,7 @@ import { UserModule } from './modules/users/user.module';
 import { ConfigModule } from '@nestjs/config';
 import Joi from 'joi';
 import { CONFIG_KEYS } from './common/constants/config.keys';
+import { PrismaModule } from './modules/prisma/prisma.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { CONFIG_KEYS } from './common/constants/config.keys';
       })
     }),
 
+    PrismaModule,
     AuthModule,
     UserModule,
   ],

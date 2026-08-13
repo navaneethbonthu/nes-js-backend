@@ -38,6 +38,10 @@ export class UserService {
 
 
     findByEmail(email: string) {
+        // Add a safety check (Optional but good practice)
+        if (!email) {
+            throw new Error('Email is required');
+        }
 
         return this.prismaServie.user.findUnique({
             where: { email },
@@ -47,6 +51,10 @@ export class UserService {
     }
 
     findOne(id: number) {
+        // Add a safety check (Optional but good practice)
+        if (!id) {
+            throw new Error('ID is required');
+        }
         return this.prismaServie.user.findUnique({
             where: { id }
         })

@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Request, UseGuards } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
+import { AuthGuard } from "@nestjs/passport";
 
 
 
@@ -22,10 +23,19 @@ export class UserControler {
     //     return this.userService.findByEmail(email)
     // }
 
+    @UseGuards(AuthGuard('jwt'))
+    @Get('profile')
+    async getUserProfile(@Request() req: any) {
+        return req.user
+    }
+
     @Get(':id')
-    async getById(@Param('id') id: number) {
+    async getById(@Param('id', ParseIntPipe) id: number) {
         return this.userService.findOne(id)
     }
+
+
+
 
 
 

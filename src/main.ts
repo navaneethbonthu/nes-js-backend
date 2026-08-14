@@ -6,12 +6,15 @@ import { GlobalExceptionFilter } from './common/filters/http-exception.filter';
 import winston from 'winston/lib/winston/config';
 import { WinstonModule } from 'nest-winston';
 import { winstonConfig } from './common/configs/winston.config';
+import * as express from 'express'
+import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: WinstonModule.createLogger(winstonConfig)
   });
 
+  app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
 
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true, // Strips away properties that don't have decorators in DTO

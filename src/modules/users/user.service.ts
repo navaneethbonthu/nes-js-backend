@@ -37,29 +37,39 @@ export class UserService {
 
 
 
-    findByEmail(email: string) {
+    async findByEmail(email: string) {
         // Add a safety check (Optional but good practice)
         if (!email) {
             throw new Error('Email is required');
         }
 
-        return this.prismaServie.user.findUnique({
+        return await this.prismaServie.user.findUnique({
             where: { email },
 
         })
 
     }
 
-    findOne(id: number) {
-        throw new Error('Database connection failed!');
+    async findOne(id: number) {
         // Add a safety check (Optional but good practice)
         if (!id) {
             throw new Error('ID is required');
         }
-        return this.prismaServie.user.findUnique({
+        return await this.prismaServie.user.findUnique({
             where: { id }
         })
     }
+
+
+    async updateProfileImage(userId: number, filePath: string) {
+
+        return await this.prismaServie.user.update({
+            where: { id: userId },
+            data: { profileImage: filePath },
+            select: { id: true, name: true, profileImage: true }
+        })
+    }
+
 
 
 

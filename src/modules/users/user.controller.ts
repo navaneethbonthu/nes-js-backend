@@ -1,7 +1,10 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Request, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Request, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { AuthGuard } from "@nestjs/passport";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { multerOptions } from "src/common/utils/multer-options";
+// import { Request } from "express";
 
 
 
@@ -34,6 +37,15 @@ export class UserControler {
     @Get('profile')
     async getUserProfile(@Request() req: any) {
         return req.user
+    }
+
+
+    @Post('upload-profile')
+    @UseGuards(AuthGuard('jwt'))
+    @UseInterceptors(FileInterceptor('file-key', multerOptions))
+    async uploadFile(@UploadedFile() file: Express.Multer.File, @Request() req) {
+
+        return this.userService.updateProfileImage(req.user.userId, file.path)
     }
 
 

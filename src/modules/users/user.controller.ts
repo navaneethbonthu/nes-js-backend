@@ -23,15 +23,17 @@ export class UserControler {
     //     return this.userService.findByEmail(email)
     // }
 
-    @UseGuards(AuthGuard('jwt'))
-    @Get('profile')
-    async getUserProfile(@Request() req: any) {
-        return req.user
-    }
+
 
     @Get(':id')
     async getById(@Param('id', ParseIntPipe) id: number) {
         return this.userService.findOne(id)
+    }
+
+    @UseGuards(AuthGuard('jwt'))
+    @Get('profile')
+    async getUserProfile(@Request() req: any) {
+        return req.user
     }
 
 

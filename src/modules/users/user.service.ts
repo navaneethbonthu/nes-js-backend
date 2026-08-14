@@ -51,6 +51,7 @@ export class UserService {
     }
 
     findOne(id: number) {
+        throw new Error('Database connection failed!');
         // Add a safety check (Optional but good practice)
         if (!id) {
             throw new Error('ID is required');

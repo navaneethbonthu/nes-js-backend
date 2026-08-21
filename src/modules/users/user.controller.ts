@@ -4,6 +4,7 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { AuthGuard } from "@nestjs/passport";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { multerOptions } from "src/common/utils/multer-options";
+import type { RequestWithUser } from "../auth/types/user.type";
 // import { Request } from "express";
 
 
@@ -26,18 +27,19 @@ export class UserControler {
     //     return this.userService.findByEmail(email)
     // }
 
-
+    @UseGuards(AuthGuard('jwt'))
+    @Get('profile')
+    async getUserProfile(@Request() req: RequestWithUser) {
+        console.log('user details', req.user)
+        return req.user
+    }
 
     @Get(':id')
     async getById(@Param('id', ParseIntPipe) id: number) {
         return this.userService.findOne(id)
     }
 
-    @UseGuards(AuthGuard('jwt'))
-    @Get('profile')
-    async getUserProfile(@Request() req: any) {
-        return req.user
-    }
+
 
 
     @Post('upload-profile')

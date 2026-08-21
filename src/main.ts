@@ -8,11 +8,25 @@ import { WinstonModule } from 'nest-winston';
 import { winstonConfig } from './common/configs/winston.config';
 import * as express from 'express'
 import { join } from 'path';
+import cookieParser from 'cookie-parser';
+import { CONFIG_KEYS } from './common/constants/config.keys';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     logger: WinstonModule.createLogger(winstonConfig)
   });
+  app.use(cookieParser())
+
+  // 1. Get ConfigService to access environment variables
+  const configService = app.get(ConfigService);
+  const frontendUrl = configService.get<string>(CONFIG_KEYS.FRONTEND_URL);
+
+  app.enableCors({
+    origin: frontendUrl,
+    methods: 'GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS',
+    credintials: true,
+    allowedHeaders: 'Content-Type, Accept, Authorization',
+  })
 
   app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
 
@@ -24,7 +38,7 @@ async function bootstrap() {
 
   app.useGlobalFilters(new GlobalExceptionFilter())
 
-  const configService = app.get(ConfigService)
-  await app.listen(configService.get<number>('PORT') || 3000);
+
+  await app.listen(configService.get<number>(CONFIG_KEYS.PORT) || 3000);
 }
 bootstrap();

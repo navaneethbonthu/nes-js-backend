@@ -5,6 +5,8 @@ import express from 'express';
 import { JwtService } from "@nestjs/jwt";
 import { AuthGuard } from "@nestjs/passport";
 import * as userType from "./types/user.type";
+import { ForgotPasswordDto } from "./dto/forgot-password.dto";
+import { ResetPasswordDto } from "./dto/reset-password.dto";
 
 
 
@@ -62,6 +64,18 @@ export class AuthController {
         res.clearCookie('refreshToken')
         return { message: 'Loggedout succssfully' }
 
+    }
+
+
+    @Post('forgot-password')
+    async forgotPassword(@Body() dto: ForgotPasswordDto) {
+        return this.authService.forgotPassword(dto.email);
+    }
+
+
+    @Post('reset-password')
+    async resetPassword(@Body() dto: ResetPasswordDto) {
+        return this.authService.resetPassword(dto)
     }
 
 

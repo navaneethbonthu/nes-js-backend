@@ -9,6 +9,8 @@ import { CONFIG_KEYS } from './common/constants/config.keys';
 import { PrismaModule } from './modules/prisma/prisma.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { transport } from 'winston';
 
 @Module({
   imports: [
@@ -30,6 +32,28 @@ import { APP_GUARD } from '@nestjs/core';
           limit: config.getOrThrow<number>(CONFIG_KEYS.THROTTLE_LIMIT),
         },
       ],
+    }),
+
+
+    MailerModule.forRootAsync({
+
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+
+        transport: {
+          host: config.getOrThrow(CONFIG_KEYS.MAIL_HOST),
+          port: config.getOrThrow(CONFIG_KEYS.MAIL_PORT),
+          auth: {
+            user: config.getOrThrow(CONFIG_KEYS.MAIL_USER),
+            pass: config.getOrThrow(CONFIG_KEYS.MAIL_PASSWORD)
+          }
+        },
+        defaults: {
+          from: `"No Reply" <${config.get('MAIL_FROM')}>`,
+        },
+      })
+
+
     }),
 
     PrismaModule,

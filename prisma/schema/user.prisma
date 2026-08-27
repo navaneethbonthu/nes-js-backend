@@ -15,6 +15,11 @@ model User {
   profileImage    String?
   refreshToken    String?
 
+
+  resetPasswordToken   String?   // Hashed token
+  resetPasswordExpires   DateTime?
+
+  
   createAt        DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 

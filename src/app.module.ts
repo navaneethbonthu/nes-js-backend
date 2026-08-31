@@ -12,6 +12,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { transport } from 'winston';
 import { HealthModule } from './modules/health/health.module';
+import { CacheModule } from '@nestjs/cache-manager';
+import { redisStore } from 'cache-manager-redis-yet';
 
 @Module({
   imports: [
@@ -52,10 +54,25 @@ import { HealthModule } from './modules/health/health.module';
         defaults: {
           from: `"No Reply" <${config.get('MAIL_FROM')}>`,
         },
-      })
-
-
+      }),
     }),
+
+
+    // CacheModule.registerAsync({
+    //   isGlobal: true,
+    //   inject: [ConfigService],
+    //   useFactory: async (config: ConfigService) => ({
+    //     store: await redisStore({
+    //       socket: {
+    //         host: config.getOrThrow(CONFIG_KEYS.REDIS_HOST),
+    //         port: config.getOrThrow(CONFIG_KEYS.REDIS_PORT)
+    //       },
+    //       password: config.getOrThrow(CONFIG_KEYS.REDIS_PASSWORD)
+    //     }),
+    //     ttl: config.getOrThrow(CONFIG_KEYS.CACHE_TTL)
+
+    //   })
+    // }),
 
     PrismaModule,
     AuthModule,

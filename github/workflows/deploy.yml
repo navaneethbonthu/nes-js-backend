@@ -1,0 +1,36 @@
+name: NestJS CI/CD
+
+on:
+  push:
+    branches: [main] # Trigger only when you push to the main branch
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Linting
+        run: npm run lint
+
+      - name: Build Project
+        run: npm run build
+
+  deploy:
+    needs: build_and_test # Only deploy if build/lint passes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Render
+        # We use a simple curl command to trigger Render's Deploy Hook
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}

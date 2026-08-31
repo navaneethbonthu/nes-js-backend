@@ -11,6 +11,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { transport } from 'winston';
+import { HealthModule } from './modules/health/health.module';
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import { transport } from 'winston';
     PrismaModule,
     AuthModule,
     UserModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [

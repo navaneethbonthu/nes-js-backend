@@ -3,7 +3,7 @@ import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { AuthGuard } from "@nestjs/passport";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { multerOptions } from "src/common/utils/multer-options";
+import { multerOptions } from "../../common/utils/multer-options";
 import type { RequestWithUser } from "../auth/types/user.type";
 // import { Request } from "express";
 

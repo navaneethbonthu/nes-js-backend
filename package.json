@@ -100,7 +100,7 @@
     "testEnvironment": "node"
   },
   "prisma": {
-    "schema": "prisma/schema"
+    "schema": "prisma/schema.prisma"
   },
   "_moduleAliases": {
     "src": "dist"

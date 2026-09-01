@@ -20,7 +20,7 @@ export class HealthController {
         return this.healt.check([
             () => this.db.isHealty('database'),
             () => this.memory.checkHeap('memory_heap', 150 * 1024 * 1024),
-            () => this.disk.checkStorage('storage', { thresholdPercent: 0.9, path: process.platform === 'win32' ? 'c:\\' : '/' })
+            // () => this.disk.checkStorage('storage', { thresholdPercent: 0.9, path: process.platform === 'win32' ? 'c:\\' : '/' })
         ])
     }
 }

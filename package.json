@@ -99,9 +99,6 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   },
-  "prisma": {
-    "schema": "prisma/schema.prisma"
-  },
   "_moduleAliases": {
     "src": "dist"
   }

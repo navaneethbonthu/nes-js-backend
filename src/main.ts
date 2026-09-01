@@ -13,9 +13,11 @@ import cookieParser from 'cookie-parser';
 import { CONFIG_KEYS } from './common/constants/config.keys';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    logger: WinstonModule.createLogger(winstonConfig)
-  });
+  const app = await NestFactory.create(AppModule,
+    // {
+    // logger: WinstonModule.createLogger(winstonConfig)
+    // }
+  );
   app.use(cookieParser())
 
   // 1. Get ConfigService to access environment variables

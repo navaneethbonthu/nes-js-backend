@@ -40,6 +40,7 @@
     "class-validator": "^0.15.1",
     "cookie-parser": "^1.4.7",
     "joi": "^18.2.3",
+    "module-alias": "^2.3.4",
     "nest-winston": "^1.10.2",
     "nodemailer": "^9.0.5",
     "passport": "^0.7.0",
@@ -100,5 +101,8 @@
   },
   "prisma": {
     "schema": "prisma/schema"
+  },
+  "_moduleAliases": {
+    "src": "dist"
   }
 }

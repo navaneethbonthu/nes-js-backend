@@ -18,7 +18,7 @@ import { redisStore } from 'cache-manager-redis-yet';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: process.env.NODE_ENV === 'development' ? `.env` : `.env.${process.env.NODE_ENV}`,
+      envFilePath: process.env.NODE_ENV === 'development' ? `.env` : undefined,
       isGlobal: true,
       validationSchema: Joi.object({
         [CONFIG_KEYS.PORT]: Joi.number().default(3000),

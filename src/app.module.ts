@@ -31,8 +31,9 @@ import { redisStore } from 'cache-manager-redis-yet';
       inject: [ConfigService],
       useFactory: (config: ConfigService) => [
         {
-          ttl: config.getOrThrow<number>(CONFIG_KEYS.TTL_TIME),
-          limit: config.getOrThrow<number>(CONFIG_KEYS.THROTTLE_LIMIT),
+          // 2. Wrap the values in Number() to ensure they aren't strings
+          ttl: Number(config.get(CONFIG_KEYS.TTL_TIME)) || 60000,
+          limit: Number(config.get(CONFIG_KEYS.THROTTLE_LIMIT)) || 10,
         },
       ],
     }),

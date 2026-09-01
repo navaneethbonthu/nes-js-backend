@@ -7,7 +7,7 @@ import * as crypto from 'crypto';
 import { JwtService } from "@nestjs/jwt";
 import { first, throttle } from "rxjs";
 import { ConfigService, ConfigType } from "@nestjs/config";
-import { CONFIG_KEYS } from "src/common/constants/config.keys";
+import { CONFIG_KEYS } from "../../common/constants/config.keys";
 import { Prisma } from "@prisma/client";
 import { Throttle } from "@nestjs/throttler";
 import { MailerService } from "@nestjs-modules/mailer";

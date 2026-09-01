@@ -6,7 +6,7 @@ import { PassportModule } from "@nestjs/passport";
 import { JwtModule } from "@nestjs/jwt";
 import { JwtStrategy } from "./jwt.strategy";
 import { ConfigService } from "@nestjs/config";
-import { CONFIG_KEYS } from "src/common/constants/config.keys";
+import { CONFIG_KEYS } from "../../common/constants/config.keys";
 
 
 @Module({

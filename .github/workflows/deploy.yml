@@ -33,4 +33,4 @@ jobs:
     steps:
       - name: Deploy to Render
         # We use a simple curl command to trigger Render's Deploy Hook
-        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
